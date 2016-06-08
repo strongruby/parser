@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
                           lib/parser/ruby24.rb
                           lib/parser/macruby.rb
                           lib/parser/rubymotion.rb
+                          lib/parser/strongruby23.rb
                        )
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^test/})
