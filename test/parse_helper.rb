@@ -9,8 +9,9 @@ module ParseHelper
     require 'parser/all'
     require 'parser/macruby'
     require 'parser/rubymotion'
+    require 'parser/strongruby23'
 
-    ALL_VERSIONS = %w(1.8 1.9 2.0 2.1 2.2 2.3 mac ios)
+    ALL_VERSIONS = %w(1.8 1.9 2.0 2.1 2.2 2.3 mac ios s2.3)
   end
 
   def setup
@@ -30,6 +31,7 @@ module ParseHelper
     when '2.4' then parser = Parser::Ruby24.new
     when 'mac' then parser = Parser::MacRuby.new
     when 'ios' then parser = Parser::RubyMotion.new
+    when 's2.3' then parser = Parser::StrongRuby23.new
     else raise "Unrecognized Ruby version #{version}"
     end
 

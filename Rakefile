@@ -27,7 +27,8 @@ GENERATED_FILES = %w(lib/parser/lexer.rb
                      lib/parser/ruby23.rb
                      lib/parser/ruby24.rb
                      lib/parser/macruby.rb
-                     lib/parser/rubymotion.rb)
+                     lib/parser/rubymotion.rb
+                     lib/parser/strongruby23.rb)
 
 CLEAN.include(GENERATED_FILES)
 

@@ -104,6 +104,11 @@ module Parser
         @parser_class = Parser::RubyMotion
       end
 
+      opts.on '--s23', 'Parse as StrongRuby 2.3 would' do
+        require 'parser/strongruby23'
+        @parser_class = Parser::StrongRuby23
+      end
+
       opts.on '-w', '--warnings', 'Enable warnings' do |w|
         @warnings = w
       end
