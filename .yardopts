@@ -14,6 +14,7 @@
 --exclude lib/parser/ruby22.rb
 --exclude lib/parser/macruby.rb
 --exclude lib/parser/rubymotion.rb
+--exclude lib/parser/strongruby23.rb
 -
 ./doc/*.md
 LICENSE.txt
