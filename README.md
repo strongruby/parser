@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/parser.svg)](https://badge.fury.io/rb/parser)
 [![Build Status](https://travis-ci.org/strongruby/parser.svg?branch=strongruby)](https://travis-ci.org/strongruby/parser)
-[![Coverage Status](https://coveralls.io/repos/whitequark/parser/badge.svg?branch=master)](https://coveralls.io/r/whitequark/parser)
+[![Coverage Status](https://coveralls.io/repos/strongruby/parser/badge.svg?branch=strongruby)](https://coveralls.io/r/strongruby/parser)
 
 _Parser_ is a production-ready Ruby parser written in pure Ruby. It recognizes as
 much or more code than Ripper, Melbourne, JRubyParser or ruby\_parser, and
