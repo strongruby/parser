@@ -1,7 +1,7 @@
 # Parser
 
 [![Gem Version](https://badge.fury.io/rb/parser.svg)](https://badge.fury.io/rb/parser)
-[![Build Status](https://travis-ci.org/whitequark/parser.svg?branch=master)](https://travis-ci.org/whitequark/parser)
+[![Build Status](https://travis-ci.org/strongruby/parser.svg?branch=strongruby)](https://travis-ci.org/strongruby/parser)
 [![Coverage Status](https://coveralls.io/repos/whitequark/parser/badge.svg?branch=master)](https://coveralls.io/r/whitequark/parser)
 
 _Parser_ is a production-ready Ruby parser written in pure Ruby. It recognizes as
