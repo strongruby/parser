@@ -858,8 +858,8 @@ Format:
 Format:
 
 ~~~
-(arg :foo)
-"foo"
+(arg :foo (type :Object))
+"foo : Object"
  ~~~ expression
  ~~~ name
 ~~~
@@ -869,8 +869,8 @@ Format:
 Format:
 
 ~~~
-(optarg :foo (int 1))
-"foo = 1"
+(optarg :foo (int 1) (type :Integer))
+"foo = 1 : Integer"
  ~~~~~~~ expression
      ^ operator
  ~~~ name
@@ -881,8 +881,8 @@ Format:
 Format:
 
 ~~~
-(restarg :foo)
-"*foo"
+(restarg :foo (type :Object))
+"*foo : Object"
  ~~~~ expression
   ~~~ name
 ~~~
@@ -894,8 +894,8 @@ Begin of the `expression` points to `*`.
 Format:
 
 ~~~
-(restarg)
-"*"
+(restarg (type :Object))
+"* : Object"
  ^ expression
 ~~~
 
@@ -904,8 +904,8 @@ Format:
 Format:
 
 ~~~
-(blockarg :foo)
-"&foo"
+(blockarg :foo (type :Object))
+"&foo : Object"
   ~~~ name
  ~~~~ expression
 ~~~
