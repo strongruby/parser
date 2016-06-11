@@ -858,6 +858,13 @@ Format:
 Format:
 
 ~~~
+(arg :foo)
+"foo"
+ ~~~ expression
+ ~~~ name
+~~~
+
+~~~
 (argty :foo (const nil :Object))
 "foo : Object"
  ~~~~~~~~~~~~ expression
@@ -869,6 +876,14 @@ Format:
 ### Optional argument
 
 Format:
+
+~~~
+(optarg :foo (int 1))
+"foo = 1"
+ ~~~~~~~ expression
+     ^ operator
+ ~~~ name
+~~~
 
 ~~~
 (optargty :foo (int 1) (const nil :Integer))
@@ -883,6 +898,13 @@ Format:
 ### Named splat argument
 
 Format:
+
+~~~
+(restarg :foo)
+"*foo"
+ ~~~~ expression
+  ~~~ name
+~~~
 
 ~~~
 (restargty :foo (const nil :Object))
@@ -900,6 +922,12 @@ Begin of the `expression` points to `*`.
 Format:
 
 ~~~
+(restarg)
+"*"
+ ^ expression
+~~~
+
+~~~
 (restargty (const nil :Object))
 "* : Object"
  ~~~~~~~~~~ expression
@@ -910,6 +938,13 @@ Format:
 ### Block argument
 
 Format:
+
+~~~
+(blockarg :foo)
+"&foo"
+  ~~~ name
+ ~~~~ expression
+~~~
 
 ~~~
 (blockargty :foo (const nil :Object))
