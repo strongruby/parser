@@ -4203,7 +4203,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{if (a, b = foo); end},
       %q{    ~~~~~~~~~~ location},
-      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_if_masgn__24
@@ -4211,7 +4211,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{if (a, b = foo); end},
       %q{    ~~~~~~~~~~ location},
-      ALL_VERSIONS - %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      ALL_VERSIONS - %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_if_mod_masgn
@@ -4219,7 +4219,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{1 if (a, b = foo)},
       %q{      ~~~~~~~~~~ location},
-      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_tern_masgn
@@ -4227,7 +4227,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{(a, b = foo) ? 1 : 2},
       %q{ ~~~~~~~~~~ location},
-      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_cond_begin
@@ -4256,13 +4256,13 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{if foo && (a, b = bar); end},
       %q{           ~~~~~~~~~~ location},
-      %w(1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
 
     assert_diagnoses(
       [:error, :masgn_as_condition],
       %q{if foo || (a, b = bar); end},
       %q{           ~~~~~~~~~~ location},
-      %w(1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
 
     assert_parses(
       s(:if,
@@ -4486,7 +4486,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{while (a, b = foo); end},
       %q{       ~~~~~~~~~~ location},
-      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_while_mod_masgn
@@ -4494,7 +4494,7 @@ class TestParser < Minitest::Test
       [:error, :masgn_as_condition],
       %q{foo while (a, b = foo)},
       %q{           ~~~~~~~~~~ location},
-      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac))
+      %w(1.8 1.9 2.0 2.1 2.2 2.3 ios mac s2.3))
   end
 
   def test_for
