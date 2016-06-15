@@ -2122,6 +2122,10 @@ keyword_variable: kNIL
                     {
                       result = @builder.arg(val[0])
                     }
+                | f_arg_asgn tCOLON expr
+                    {
+                      result = @builder.argty(val[0], val[1], val[2])
+                    }
                 | tLPAREN f_margs rparen
                     {
                       result = @builder.multi_lhs(val[0], val[1], val[2])

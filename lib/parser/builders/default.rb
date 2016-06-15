@@ -590,6 +590,11 @@ module Parser
         variable_map(name_t))
     end
 
+    def argty(name_t, colon_t, expr)
+      n(:argty, [ value(name_t).to_sym, expr ],
+        argty_map(name_t, colon_t, expr))
+    end
+
     def optarg(name_t, eql_t, value)
       n(:optarg, [ value(name_t).to_sym, value ],
         variable_map(name_t).
@@ -1472,6 +1477,10 @@ module Parser
 
       Source::Map::Condition.new(loc(keyword_t), nil, loc(else_t), nil,
                                  begin_l.join(end_l))
+    end
+
+    def argty_map(name_t, colon_t, expr)
+      Source::Map::Typed.new(loc(name_t), loc(colon_t), expr)
     end
 
     #
