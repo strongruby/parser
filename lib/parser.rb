@@ -48,7 +48,7 @@ module Parser
     require 'parser/source/map/rescue_body'
     require 'parser/source/map/heredoc'
     require 'parser/source/map/objc_kwarg'
-    require 'parser/source/map/typed'
+    require 'parser/source/map/annot'
   end
 
   require 'parser/syntax_error'

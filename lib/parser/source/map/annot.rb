@@ -1,7 +1,7 @@
 module Parser
   module Source
 
-    class Map::Typed < Map
+    class Map::Annot < Map
       attr_reader :name
       attr_reader :colon
 

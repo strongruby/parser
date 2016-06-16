@@ -2773,7 +2773,10 @@ class TestParser < Minitest::Test
   def test_argty
     assert_parses(
       s(:def, :f,
-        s(:args, s(:argty, :foo, s(:const, nil, :Object))),
+        s(:args,
+	  s(:annot,
+	    s(:arg, :foo),
+	    s(:const, nil, :Object))),
         nil),
       %q{def f(foo : Object); end},
       %q{}, #TODO

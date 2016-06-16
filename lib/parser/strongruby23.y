@@ -2124,7 +2124,7 @@ keyword_variable: kNIL
                     }
                 | f_arg_asgn tCOLON expr
                     {
-                      result = @builder.argty(val[0], val[1], val[2])
+                      result = @builder.annot(@builder.arg(val[0]), val[1], val[2])
                     }
                 | tLPAREN f_margs rparen
                     {

@@ -590,9 +590,9 @@ module Parser
         variable_map(name_t))
     end
 
-    def argty(name_t, colon_t, expr)
-      n(:argty, [ value(name_t).to_sym, expr ],
-        argty_map(name_t, colon_t, expr))
+    def annot(expr_name, colon_t, expr_ty)
+      n(:annot, [ expr_name, expr_ty ],
+        annot_map(expr_name, colon_t, expr_ty))
     end
 
     def optarg(name_t, eql_t, value)
@@ -1479,8 +1479,8 @@ module Parser
                                  begin_l.join(end_l))
     end
 
-    def argty_map(name_t, colon_t, expr)
-      Source::Map::Typed.new(loc(name_t), loc(colon_t), expr)
+    def annot_map(expr_name, colon_t, expr_ty)
+      Source::Map::Annot.new(expr_name, loc(colon_t), expr_ty)
     end
 
     #
