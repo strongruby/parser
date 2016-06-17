@@ -2118,13 +2118,12 @@ keyword_variable: kNIL
                       result = val[0]
                     }
 
-      f_arg_item: f_arg_asgn
+      f_arg_item: f_arg_asgn opt_annot
                     {
                       result = @builder.arg(val[0])
-                    }
-                | f_arg_asgn tCOLON expr
-                    {
-                      result = @builder.annot(@builder.arg(val[0]), val[1], val[2])
+                      if val[1] then
+                        result = @builder.annot(result, val[1][0], val[1][1])
+                      end
                     }
                 | tLPAREN f_margs rparen
                     {
@@ -2255,6 +2254,12 @@ keyword_variable: kNIL
                 |
                     {
                       result = []
+                    }
+
+       opt_annot: none
+                | tCOLON expr # vs. tIDENTIFIER
+                    {
+                      result = [ val[0], val[1] ]
                     }
 
        singleton: var_ref
