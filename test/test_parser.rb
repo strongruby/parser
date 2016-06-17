@@ -2770,7 +2770,7 @@ class TestParser < Minitest::Test
   # Typing of formal arguments
   #
 
-  def test_argty
+  def test_arg_annot
     assert_parses(
       s(:def, :f,
         s(:args,
@@ -2779,8 +2779,24 @@ class TestParser < Minitest::Test
 	    s(:const, nil, :Object))),
         nil),
       %q{def f(foo : Object); end},
-      %q{}, #TODO
+      %q{      ~~~ name (args.annot.arg)
+        |      ~~~ expression (args.annot.arg)
+        |          ^ colon (args.annot)
+        |            ~~~~~~ expression (args.annot.const)
+        |     ^ begin (args)
+        |                  ^ end (args)
+        |     ~~~~~~~~~~~~~~ expression (args)},
       %w(s2.3))
+
+    assert_parses(
+      s(:def, :f,
+        s(:args,
+	  s(:annot, s(:arg, :foo), s(:const, nil, :Integer)),
+	  s(:annot, s(:arg, :bar), s(:const, nil, :String))),
+        nil),
+      %q{def f(foo : Integer, bar : String); end},
+      %q{},
+      %w{s2.3})
   end
 
   #
