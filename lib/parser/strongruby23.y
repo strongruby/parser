@@ -2257,7 +2257,7 @@ keyword_variable: kNIL
                     }
 
        opt_annot: none
-                | tCOLON expr # vs. tIDENTIFIER
+                | tCOLON primary
                     {
                       result = [ val[0], val[1] ]
                     }
