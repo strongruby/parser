@@ -865,7 +865,7 @@ Format:
 ~~~
 
 ~~~
-(argty :foo (const nil :Object))
+(annot (arg :foo) (const nil :Object)))
 "foo : Object"
  ~~~~~~~~~~~~ expression
      ^ colon
@@ -886,7 +886,7 @@ Format:
 ~~~
 
 ~~~
-(optargty :foo (int 1) (const nil :Integer))
+(annot (optarg :foo (int 1)) (const nil :Integer))
 "foo = 1 : Integer"
  ~~~~~~~~~~~~~~~~~ expression
      ^ operator
@@ -907,7 +907,7 @@ Format:
 ~~~
 
 ~~~
-(restargty :foo (const nil :Object))
+(annot (restarg :foo) (const nil :Object))
 "*foo : Object"
  ~~~~~~~~~~~~~ expression
       ^ colon
@@ -928,7 +928,7 @@ Format:
 ~~~
 
 ~~~
-(restargty (const nil :Object))
+(annot (restarg) (const nil :Object))
 "* : Object"
  ~~~~~~~~~~ expression
    ^ colon
@@ -947,7 +947,7 @@ Format:
 ~~~
 
 ~~~
-(blockargty :foo (const nil :Object))
+(annot (blockarg :foo) (const nil :Object))
 "&foo : Object"
   ~~~ name
       ^ colon
