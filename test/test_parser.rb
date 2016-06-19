@@ -2844,6 +2844,17 @@ class TestParser < Minitest::Test
       %w{s2.3})
   end
 
+  def test_blockarg_annot
+    assert_parses(
+      s(:def, :f,
+        s(:args,
+	  s(:annot, s(:blockarg, :block), s(:const, nil, :Object))),
+        nil),
+      %q{def f(&block : Object); end},
+      %q{}, #TODO
+      %w{s2.3})
+  end
+
   #
   # Sends
   #

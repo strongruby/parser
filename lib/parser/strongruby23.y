@@ -2249,11 +2249,14 @@ keyword_variable: kNIL
 
      blkarg_mark: tAMPER2 | tAMPER
 
-     f_block_arg: blkarg_mark tIDENTIFIER
+     f_block_arg: blkarg_mark tIDENTIFIER opt_annot
                     {
                       @static_env.declare val[1][0]
 
                       result = @builder.blockarg(val[0], val[1])
+                      if val[2] then
+                        result = @builder.annot(result, val[2][0], val[2][1])
+                      end
                     }
 
  opt_f_block_arg: tCOMMA f_block_arg
