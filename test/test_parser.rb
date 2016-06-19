@@ -2833,6 +2833,17 @@ class TestParser < Minitest::Test
       %w{s2.3})
   end
 
+  def test_restarg_unnamed_annot
+    assert_parses(
+      s(:def, :f,
+        s(:args,
+	  s(:annot, s(:restarg), s(:const, nil, :Object))),
+        nil),
+      %q{def f(* : Object); end},
+      %q{}, #TODO
+      %w{s2.3})
+  end
+
   #
   # Sends
   #

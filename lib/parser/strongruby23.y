@@ -2239,9 +2239,12 @@ keyword_variable: kNIL
                         result[0] = @builder.annot(result[0], val[2][0], val[2][1])
                       end
                     }
-                | restarg_mark
+                | restarg_mark opt_annot
                     {
                       result = [ @builder.restarg(val[0]) ]
+                      if val[1] then
+                        result[0] = @builder.annot(result[0], val[1][0], val[1][1])
+                      end
                     }
 
      blkarg_mark: tAMPER2 | tAMPER
