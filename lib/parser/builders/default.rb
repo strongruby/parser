@@ -592,7 +592,8 @@ module Parser
 
     def annot(expr_name, colon_t, expr_ty)
       n(:annot, [ expr_name, expr_ty ],
-        annot_map(expr_name, colon_t, expr_ty))
+        collection_map(nil, [ expr_name, expr_ty ], nil))
+        #annot_map(expr_name, colon_t, expr_ty)) #TODO
     end
 
     def optarg(name_t, eql_t, value)
@@ -1479,9 +1480,10 @@ module Parser
                                  begin_l.join(end_l))
     end
 
-    def annot_map(expr_name, colon_t, expr_ty)
-      Source::Map::Annot.new(expr_name, loc(colon_t), expr_ty)
-    end
+#TODO
+#    def annot_map(name_t, colon_t, expr_ty)
+#      Source::Map::Annot.new(loc(name_t), loc(colon_t), expr_ty)
+#    end
 
     #
     # HELPERS

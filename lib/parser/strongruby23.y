@@ -2197,9 +2197,12 @@ keyword_variable: kNIL
                       result = [ @builder.kwrestarg(val[0]) ]
                     }
 
-           f_opt: f_arg_asgn tEQL arg_value
+           f_opt: f_arg_asgn tEQL arg_value opt_annot
                     {
                       result = @builder.optarg(val[0], val[1], val[2])
+                      if val[3] then
+                        result = @builder.annot(result, val[3][0], val[3][1])
+                      end
                     }
 
      f_block_opt: f_arg_asgn tEQL primary_value
