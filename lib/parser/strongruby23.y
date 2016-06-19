@@ -2230,11 +2230,14 @@ keyword_variable: kNIL
 
     restarg_mark: tSTAR2 | tSTAR
 
-      f_rest_arg: restarg_mark tIDENTIFIER
+      f_rest_arg: restarg_mark tIDENTIFIER opt_annot
                     {
                       @static_env.declare val[1][0]
 
                       result = [ @builder.restarg(val[0], val[1]) ]
+                      if val[2] then
+                        result[0] = @builder.annot(result[0], val[2][0], val[2][1])
+                      end
                     }
                 | restarg_mark
                     {
