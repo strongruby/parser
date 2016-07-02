@@ -1,14 +1,13 @@
 module Parser
   module Source
 
-    class Map::Annot < Map
-      attr_reader :name
+    class Map::Annot < Map::Collection
       attr_reader :colon
 
-      def initialize(name_l, colon_l, expression_l)
-        @name, @colon = name_l, colon_l
+      def initialize(expression_l, colon_l)
+        @colon = colon_l
 
-        super(expression_l)
+        super(nil, nil, expression_l)
       end
     end
 

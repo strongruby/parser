@@ -2779,15 +2779,13 @@ class TestParser < Minitest::Test
 	    s(:const, nil, :Object))),
         nil),
       %q{def f(foo : Object); end},
-      %q{},
-#TODO
-#     %q{      ~~~ name (args.annot.arg)
-#       |      ~~~ expression (args.annot.arg)
-#       |          ^ colon (args.annot)
-#       |            ~~~~~~ expression (args.annot.const)
-#       |     ^ begin (args)
-#       |                  ^ end (args)
-#       |     ~~~~~~~~~~~~~~ expression (args)},
+      %q{      ~~~ name (args.annot.arg)
+        |      ~~~ expression (args.annot.arg)
+        |          ^ colon (args.annot)
+        |            ~~~~~~ expression (args.annot.const)
+        |     ^ begin (args)
+        |                  ^ end (args)
+        |     ~~~~~~~~~~~~~~ expression (args)},
       %w(s2.3))
 
     assert_parses(
@@ -2808,7 +2806,12 @@ class TestParser < Minitest::Test
 	  s(:annot, s(:optarg, :foo, s(:int, 1)), s(:const, nil, :Integer))),
         nil),
       %q{def f foo = 1 : Integer; end},
-      %q{}, #TODO
+      %q{      ~~~ name (args.annot.optarg)
+        |          ^ operator (args.annot.optarg)
+        |      ~~~~~~~ expression (args.annot.optarg)
+        |              ^ colon (args.annot)
+        |                ~~~~~~~ expression (args.annot.const)
+        |      ~~~~~~~~~~~~~~~~~ expression (args)},
       %w{s2.3})
 
     assert_parses(
@@ -2829,7 +2832,11 @@ class TestParser < Minitest::Test
 	  s(:annot, s(:restarg, :foo), s(:const, nil, :Object))),
         nil),
       %q{def f(*foo : Object); end},
-      %q{}, #TODO
+      %q{       ~~~ name (args.annot.restarg)
+        |      ~~~~ expression (args.annot.restarg)
+        |           ^ colon (args.annot)
+        |             ~~~~~~ expression (args.annot.const)
+        |     ~~~~~~~~~~~~~~~ expression (args)},
       %w{s2.3})
   end
 
@@ -2840,7 +2847,10 @@ class TestParser < Minitest::Test
 	  s(:annot, s(:restarg), s(:const, nil, :Object))),
         nil),
       %q{def f(* : Object); end},
-      %q{}, #TODO
+      %q{      ~ expression (args.annot.restarg)
+        |        ^ colon (args.annot)
+        |          ~~~~~~ expression (args.annot.const)
+        |     ~~~~~~~~~~~~ expression (args)},
       %w{s2.3})
   end
 
@@ -2851,7 +2861,11 @@ class TestParser < Minitest::Test
 	  s(:annot, s(:blockarg, :block), s(:const, nil, :Object))),
         nil),
       %q{def f(&block : Object); end},
-      %q{}, #TODO
+      %q{       ~~~~~ name (args.annot.blockarg)
+        |      ~~~~~~ expression (args.annot.blockarg)
+        |             ^ colon (args.annot)
+        |               ~~~~~~ expression (args.annot.const)
+        |     ~~~~~~~~~~~~~~~~~ expression (args)},
       %w{s2.3})
   end
 
