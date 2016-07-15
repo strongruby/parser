@@ -595,6 +595,11 @@ module Parser
         annot_map(expr_arg, colon_t, expr_ty))
     end
 
+    def annot_ret(expr_args, colon_t, expr_ty)
+      n(:annot, [ expr_args, expr_ty ],
+        annot_ret_map(expr_args, colon_t, expr_ty))
+    end
+
     def optarg(name_t, eql_t, value)
       n(:optarg, [ value(name_t).to_sym, value ],
         variable_map(name_t).
@@ -1481,6 +1486,15 @@ module Parser
 
     def annot_map(arg_t, colon_t, expr_t)
       expr_l = join_exprs(arg_t, expr_t)
+      Source::Map::Annot.new(expr_l, loc(colon_t))
+    end
+
+    def annot_ret_map(args_t, colon_t, expr_t)
+      if args_t.nil? or args_t.loc.nil? or args_t.loc.expression.nil?
+        expr_l = loc(colon_t).join(expr_t.loc.expression)
+      else
+        expr_l = join_exprs(args_t, expr_t)
+      end
       Source::Map::Annot.new(expr_l, loc(colon_t))
     end
 

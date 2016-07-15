@@ -790,6 +790,18 @@ Format:
  ~~~~~~~~~~~~ expression
 ~~~
 
+~~~
+(def :foo (annot (args) (const nil :Object)) nil)
+"def foo : Object; end"
+ ~~~ keyword
+     ~~~ name
+         ^ colon
+         ~~~~~~~~ expression
+           ~~~~~~ expression
+                 ~~~ end
+ ~~~~~~~~~~~~~~~~~~~ expression
+~~~
+
 ### Singleton methods
 
 Format:
@@ -801,6 +813,18 @@ Format:
           ~~~ name
                ~~~ end
  ~~~~~~~~~~~~~~~~~ expression
+~~~
+
+~~~
+(defs (self) :foo (annot (args) (const nil :Object)) nil)
+"def self.foo : Object; end"
+ ~~~ keyword
+          ~~~ name
+              ^ colon
+              ~~~~~~~~ expression
+                ~~~~~~ expression
+                        ~~~ end
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~ expression
 ~~~
 
 ### Undefinition

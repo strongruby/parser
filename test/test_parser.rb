@@ -1838,6 +1838,95 @@ class TestParser < Minitest::Test
   end
 
   #
+  # Typing of method definition
+  #
+
+  def test_def_annot
+    assert_parses(
+      s(:def, :foo,
+        s(:annot,
+          s(:args),
+          s(:const, nil, :Object)), nil),
+      %q{def foo : Object; end},
+      %q{~~~ keyword
+        |    ~~~ name
+        |        ~~~~~~~~ expression (annot)
+        |        ^ colon (annot)
+        |          ~~~~~~ expression (annot.const)
+        |                  ~~~ end},
+      %w(s2.3))
+
+    assert_parses(
+      s(:def, :foo,
+        s(:annot,
+          s(:args, s(:arg, :bar)),
+          s(:const, nil, :Object)), nil),
+      %q{def foo(bar) : Object; end},
+      %q{~~~ keyword
+        |    ~~~ name
+        |       ~~~~~~~~~~~~~~ expression (annot)
+        |       ~~~~~ expression (annot.args)
+        |             ^ colon (annot)
+        |               ~~~~~~ expression (annot.const)
+        |                       ~~~ end},
+      %w(s2.3))
+
+    # String, String=, until currently unsupported.
+  end
+
+  def test_defs_annot
+    assert_parses(
+      s(:defs, s(:self), :foo,
+        s(:annot,
+          s(:args),
+          s(:const, nil, :Object)), nil),
+      %q{def self.foo : Object; end},
+      %q{~~~ keyword
+        |        ^ operator
+        |         ~~~ name
+        |             ~~~~~~~~ expression (annot)
+        |             ^ colon (annot)
+        |               ~~~~~~ expression (annot.const)
+        |                       ~~~ end},
+      %w(s2.3))
+
+    # Parentheses are necessary to disambiguate: type annotations bind to
+    # arguments more tightly than to return types.
+    assert_parses(
+      s(:defs, s(:self), :foo,
+        s(:annot,
+          s(:args, s(:arg, :bar), s(:arg, :baz)),
+          s(:const, nil, :Object)), nil),
+      %q{def self.foo(bar, baz) : Object; end},
+      %q{~~~ keyword
+        |        ^ operator
+        |         ~~~ name
+        |            ~~~~~~~~~~~~~~~~~~~ expression (annot)
+        |            ~~~~~~~~~~ expression (annot.args)
+        |                       ^ colon (annot)
+        |                         ~~~~~~ expression (annot.const)
+        |                                 ~~~ end},
+      %w(s2.3))
+
+    assert_parses(
+      s(:defs, s(:self), :foo,
+        s(:annot,
+          s(:args),
+          s(:const, nil, :Object)), nil),
+      %q{def self::foo : Object; end},
+      %q{~~~ keyword
+        |        ^^ operator
+        |          ~~~ name
+        |              ~~~~~~~~ expression (annot)
+        |              ^ colon (annot)
+        |                ~~~~~~ expression (annot.const)
+        |                        ~~~ end},
+      %w(s2.3))
+
+    # (foo).foo, String.foo, String::foo currently unsupported.
+  end
+
+  #
   # Aliasing
   #
 
