@@ -1956,7 +1956,7 @@ keyword_variable: kNIL
                       result = nil
                     }
 
-       f_arglist: tLPAREN2 f_args rparen opt_ret_type
+       f_arglist: tLPAREN2 f_args rparen opt_annot_ret
                     {
                       result = @builder.args(val[0], val[1], val[2])
                       if val[3] then
@@ -1969,13 +1969,10 @@ keyword_variable: kNIL
                       result = @lexer.in_kwarg
                       @lexer.in_kwarg = true
                     }
-                  f_args opt_ret_type term
+                  f_args term
                     {
                       @lexer.in_kwarg = val[0]
                       result = @builder.args(nil, val[1], nil)
-                      if val[2] then
-                        result = @builder.annot_ret(result, val[2][0], val[2][1])
-                      end
                     }
 
        args_tail: f_kwarg tCOMMA f_kwrest opt_f_block_arg
@@ -2280,10 +2277,10 @@ keyword_variable: kNIL
                       result = [ val[0], val[1] ]
                     }
 
-    opt_ret_type: none
-                | tCOLON tCONSTANT
+   opt_annot_ret: none
+                | tCOLON primary term
                     {
-                      result = [ val[0], @builder.const(val[1]) ]
+                      result = [ val[0], val[1] ]
                     }
 
        singleton: var_ref
