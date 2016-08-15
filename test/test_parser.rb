@@ -1847,6 +1847,20 @@ class TestParser < Minitest::Test
         s(:annot,
           s(:args),
           s(:const, nil, :Object)), nil),
+      %q{def foo : Object; end},
+      %q{~~~ keyword
+        |    ~~~ name
+        |        ~~~~~~~~ expression (annot)
+        |        ^ colon (annot)
+        |          ~~~~~~ expression (annot.const)
+        |                  ~~~ end},
+      %w(s2.3))
+
+    assert_parses(
+      s(:def, :foo,
+        s(:annot,
+          s(:args),
+          s(:const, nil, :Object)), nil),
       %q{def foo() : Object; end},
       %q{~~~ keyword
         |    ~~~ name
@@ -1863,13 +1877,13 @@ class TestParser < Minitest::Test
           s(:begin, s(:send,
             s(:const, nil, :TrueClass), :|, s(:const, nil, :FalseClass)))),
         nil),
-      %q{def foo() : (TrueClass | FalseClass) ; end},
+      %q{def foo : (TrueClass | FalseClass) ; end},
       %q{~~~ keyword
         |    ~~~ name
-        |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ expression (annot)
-        |          ^ colon (annot)
-        |            ~~~~~~~~~~~~~~~~~~~~~~~~ expression (annot.begin)
-        |                                       ~~~ end},
+        |        ~~~~~~~~~~~~~~~~~~~~~~~~~~ expression (annot)
+        |        ^ colon (annot)
+        |          ~~~~~~~~~~~~~~~~~~~~~~~~ expression (annot.begin)
+        |                                     ~~~ end},
       %w(s2.3))
 
     assert_parses(
@@ -1896,6 +1910,21 @@ class TestParser < Minitest::Test
         s(:annot,
           s(:args),
           s(:const, nil, :Object)), nil),
+      %q{def self.foo : Object; end},
+      %q{~~~ keyword
+        |        ^ operator
+        |         ~~~ name
+        |             ~~~~~~~~ expression (annot)
+        |             ^ colon (annot)
+        |               ~~~~~~ expression (annot.const)
+        |                       ~~~ end},
+      %w(s2.3))
+
+    assert_parses(
+      s(:defs, s(:self), :foo,
+        s(:annot,
+          s(:args),
+          s(:const, nil, :Object)), nil),
       %q{def self.foo() : Object; end},
       %q{~~~ keyword
         |        ^ operator
@@ -1906,8 +1935,6 @@ class TestParser < Minitest::Test
         |                         ~~~ end},
       %w(s2.3))
 
-    # Parentheses are necessary to disambiguate, although the requirement may
-    # be relaxed for empty argument lists.
     assert_parses(
       s(:defs, s(:self), :foo,
         s(:annot,

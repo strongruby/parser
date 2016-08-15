@@ -1956,7 +1956,7 @@ keyword_variable: kNIL
                       result = nil
                     }
 
-       f_arglist: tLPAREN2 f_args rparen opt_annot_ret
+       f_arglist: tLPAREN2 f_args rparen opt_annot_term
                     {
                       result = @builder.args(val[0], val[1], val[2])
                       if val[3] then
@@ -1969,10 +1969,22 @@ keyword_variable: kNIL
                       result = @lexer.in_kwarg
                       @lexer.in_kwarg = true
                     }
-                  f_args term
+                  f_args_ret term
                     {
                       @lexer.in_kwarg = val[0]
-                      result = @builder.args(nil, val[1], nil)
+                      result = val[1]
+                    }
+
+      f_args_ret: f_args_some
+                    {
+                      result = @builder.args(nil, val[0], nil)
+                    }
+                | f_args_none opt_annot
+                    {
+                      result = @builder.args(nil, val[0], nil)
+                      if val[1] then
+                        result = @builder.annot_ret(result, val[1][0], val[1][1])
+                      end
                     }
 
        args_tail: f_kwarg tCOMMA f_kwrest opt_f_block_arg
@@ -2001,7 +2013,16 @@ keyword_variable: kNIL
                       result = []
                     }
 
-          f_args: f_arg tCOMMA f_optarg tCOMMA f_rest_arg              opt_args_tail
+          f_args: f_args_some
+                    {
+                      result = val[0]
+                    }
+                | f_args_none
+                    {
+                      result = val[0]
+                    }
+
+     f_args_some: f_arg tCOMMA f_optarg tCOMMA f_rest_arg              opt_args_tail
                     {
                       result = val[0].
                                   concat(val[2]).
@@ -2086,7 +2107,8 @@ keyword_variable: kNIL
                     {
                       result = val[0]
                     }
-                | # nothing
+
+     f_args_none: # nothing
                     {
                       result = []
                     }
@@ -2277,7 +2299,7 @@ keyword_variable: kNIL
                       result = [ val[0], val[1] ]
                     }
 
-   opt_annot_ret: none
+  opt_annot_term: none
                 | tCOLON primary term
                     {
                       result = [ val[0], val[1] ]
